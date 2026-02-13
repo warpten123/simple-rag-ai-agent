@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 export default function ChatWidget() {
 
-  const BACKEND_URL = import.meta.env.BACKEND_URL || "http://localhost:8000";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
   const [msgs, setMsgs] = useState([{ role: "bot", text: "Hi! Ask me about your policy." }]);
   const [text, setText] = useState("");
 
@@ -14,7 +14,7 @@ export default function ChatWidget() {
     setText("");
 
     try {
-      const res = await fetch(BACKEND_URL, {
+      const res = await fetch(`${BACKEND_URL}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: msg }),

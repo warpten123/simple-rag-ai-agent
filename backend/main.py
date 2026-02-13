@@ -9,13 +9,14 @@ from rag.embed_store import build_and_save_index, load_index
 from rag.rag_answer import retrieve, generate_answer
 
 app = FastAPI()
+production_url = os.getenv("FRONTEND_URL", "https://simple-rag-ai-agent.vercel.app")
 
-# Enable CORS for local frontend during development
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
         "http://127.0.0.1:5173",
+        production_url, 
     ],
     allow_credentials=True,
     allow_methods=["*"],
