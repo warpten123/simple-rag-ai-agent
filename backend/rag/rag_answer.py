@@ -1,8 +1,13 @@
 import numpy as np
 from openai import OpenAI
 import faiss
+import httpx
 
-client = OpenAI()
+unsafe_client = httpx.Client(verify=False)
+
+client = OpenAI(
+    http_client=unsafe_client
+)
 CHAT_MODEL = "gpt-5.2"
 EMBED_MODEL = "text-embedding-3-small"
 
