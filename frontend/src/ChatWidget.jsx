@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
 export default function ChatWidget() {
+
+  const BACKEND_URL = import.meta.env.BACKEND_URL || "http://localhost:8000";
   const [msgs, setMsgs] = useState([{ role: "bot", text: "Hi! Ask me about your policy." }]);
   const [text, setText] = useState("");
 
@@ -30,13 +32,15 @@ export default function ChatWidget() {
         {msgs.map((m, i) => (
           <div key={i} className={"msg " + (m.role === "user" ? "msg-user" : "msg-bot") }>
             <div className="msg-text">{m.text}</div>
+            <div 
+            dangerouslySetInnerHTML={{ __html: m.text }}
+            />
           </div>
         ))}
       </div>
 
       <div className="input-row">
-        <input
-          className="chat-input"
+        <input          className="chat-input"
           placeholder="Ask about your policy..."
           value={text}
           onChange={(e) => setText(e.target.value)}
